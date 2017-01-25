@@ -19,9 +19,9 @@ function getDatabases() {
             //console.log(result);
             var dbList = result.map(function(eachDatabase) {
                 return [eachDatabase.Database]; //getting the names of each database inside each object, making each name its own array
-            }); //db_list will be an array of arrays
+            }); //dbList will be an array of arrays
 
-            console.log("db_list: ", dbList);
+            //console.log("dbList: ", dbList);
 
             var table = new Table({
                 head: ['DATABASES'.blue.bold.underline],
@@ -47,4 +47,6 @@ getDatabases()
     })
     .catch(function(error) {
         console.log("Error happened. ", error);
+        
+        connection.end();
     });
