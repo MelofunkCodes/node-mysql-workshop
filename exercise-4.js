@@ -50,27 +50,27 @@ function getAddressBooks() {
 
             //steps 1 and 2
             result.forEach(function(eachObject) {
-                
+
                 if (id[eachObject.id]) { //if property of account id already exists inside object "id", push the next addressbook in
                     id[eachObject.id].push(eachObject.name);
                 }
                 else { //else if it doesn't exist, initate the array. But if the account id does not have any addressbooks, mention it
-                    
+
                     if (eachObject.name !== null) { //have to check for the "name" directly vs what I did originally id[eachObject.id]
                         id[eachObject.id] = [eachObject.name]; //initate the array
                     }
                     else {
                         id[eachObject.id] = ["--no address books--"];
                     }
-                    
-             
+
+
                     // console.log("Account id: ", eachObject.id);
                     // console.log("Address Books: ", id[eachObject.id]);
                     // console.log("Object: ", id);
-                
+
                 }
             });
-            
+
             //console.log("id[5]: ", id[5], typeof id[5]);//outputs out [null], object
 
             //step 3
@@ -105,7 +105,7 @@ function showAddressBooks() {
                 //console.log("aBooks[prop]:", aBooks[prop], typeof aBooks[prop]);
 
                 //if (typeof aBooks[prop] !== "undefined") {
-                    accounts[prop].push(aBooks[prop]);
+                accounts[prop].push(aBooks[prop]);
                 //}
                 // else {
                 //     accounts[prop].push("--no address bookz--");
@@ -115,7 +115,7 @@ function showAddressBooks() {
             //console.log("accounts: ", accounts);
             return accounts;
         })
-        .then(function(result) {
+        .then(function(result) { //this doesn't have to be in a new THEN, if you're only returning a value versus a PROMISE, you can just have all of this stuff (lines 79 - 88), in then THEN above. ONlY use then to catch the promise that is returned from the previous chain (then will happen once that promise has been resolved)
             var table = new Table({
                 head: ['id', 'Email', 'Address Books'],
                 colWidths: [5, 20, 70]
@@ -143,3 +143,7 @@ showAddressBooks()
 
         connection.end();
     });
+    // .finally(function() { //Ziad added this. You can add this which allows you to put cleanup code, so that whether the async is actually successful (then) or fail (catch)
+    //     //never mind. This is a bluebird functionality where you can do methods on promises. Unfortunately not available on nodeJS
+    //     connection.end();
+    // })
