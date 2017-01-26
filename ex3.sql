@@ -23,3 +23,13 @@ SELECT
     id,
     email
 FROM Account;
+
+
+
+--EXERCISE 4
+SELECT 
+    Account.id,
+    Account.email,
+    AddressBook.name
+FROM Account
+    LEFT JOIN AddressBook ON Account.id = AddressBook.accountId;
